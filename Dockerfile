@@ -61,3 +61,5 @@ RUN rm -fr /tmp/*
 
 # Entrypoint has same signature as "jmeter" command
 COPY entrypoint.sh /
+
+ENTRYPOINT ["/entrypoint.sh"]
