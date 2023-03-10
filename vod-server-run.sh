@@ -5,12 +5,13 @@
 NAME="jmeter-hls-server"
 JMETER_VERSION=${JMETER_VERSION:-"5.4.3"}
 IMAGE="mrdojojo/jmeter-hls-server:${JMETER_VERSION}"
+WORKPATH="/home/altrauser/vod-benchmark"
 
 # Finally run
-echo ${JMETER_VERSION}
-echo ${PWD}
-echo ${IMAGE}
+echo "JMeter Version: ${JMETER_VERSION} "
+echo "PWD:  ${PWD}"
+echo "JMeter Image:   ${IMAGE}"
+echo "Parameters for JMeter:   ${@}"
 
-#podman run --rm --name ${NAME} -i -v ${PWD}:${PWD} -w ${PWD} ${IMAGE} $@
-
-podman run -dit -p 1099:1099 --env IP=[server IP address] --env RMI_PORT=1099 -v ${PWD}:${PWD} -w ${PWD} ${IMAGE} $@ 
+# Run JMeter Server mode
+podman run -dit -p 1099:1099 --env IP=[server IP address] --env RMI_PORT=1099 -v ${PWD}:${WORKPATH}:Z  -w ${WORKPATH}  ${IMAGE} $@ 
